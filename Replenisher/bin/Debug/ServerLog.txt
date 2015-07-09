@@ -1,0 +1,48 @@
+[07/08/15 00:27:15] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/08/15 00:27:15] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\Visual Studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/08/15 00:27:15] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/08/15 00:27:15] [Server API] Verbose: 	Mono: False
+[07/08/15 00:27:17] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/08/15 00:27:17] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/08/15 12:35:06] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/08/15 12:35:06] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\Visual Studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/08/15 12:35:06] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/08/15 12:35:06] [Server API] Verbose: 	Mono: False
+[07/08/15 12:35:07] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/08/15 12:35:07] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:23:50] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:23:50] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\Visual Studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:23:50] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:23:50] [Server API] Verbose: 	Mono: False
+[07/09/15 01:23:50] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:23:50] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:24:22] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:24:22] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\Visual Studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:24:22] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:24:22] [Server API] Verbose: 	Mono: False
+[07/09/15 01:24:23] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:24:23] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:25:49] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:25:49] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:25:49] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:25:49] [Server API] Verbose: 	Mono: False
+[07/09/15 01:25:49] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:25:49] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:26:58] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:26:58] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:26:58] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:26:58] [Server API] Verbose: 	Mono: False
+[07/09/15 01:26:58] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:26:58] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:27:34] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:27:34] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:27:34] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:27:34] [Server API] Verbose: 	Mono: False
+[07/09/15 01:27:34] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:27:34] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.
+[07/09/15 01:28:00] [Server API] Verbose: TerrariaApi - Server v1.18.0.0 started.
+[07/09/15 01:28:00] [Server API] Verbose: 	Command line: "C:\Users\Cooper\Documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\TerrariaServer.exe" 
+[07/09/15 01:28:00] [Server API] Verbose: 	OS: Microsoft Windows NT 6.2.9200.0 (64bit: True)
+[07/09/15 01:28:00] [Server API] Verbose: 	Mono: False
+[07/09/15 01:28:00] [Server API] Info: Plugin TShock v4.3.1.0 (by The TShock Team) initiated.
+[07/09/15 01:28:00] [Server API] Info: Plugin Replenisher v1.0 (by omni) initiated.

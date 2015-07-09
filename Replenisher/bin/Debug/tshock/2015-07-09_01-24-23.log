@@ -1,0 +1,12 @@
+2015-07-09 01:24:23 - TShock: INFO: TShock was improperly shut down. Please use the exit command in the future to prevent this.
+2015-07-09 01:24:23 - TextLog: INFO: TShock 4.3.1.0 (Yoraiz0r R0cks) now running.
+2015-07-09 01:24:23 - TShock: INFO: AutoSave Enabled
+2015-07-09 01:24:23 - TShock: INFO: Backups Disabled
+2015-07-09 01:24:23 - TShock: INFO: Welcome to TShock for Terraria. Initialization complete.
+2015-07-09 01:24:33 - Utils: INFO: Server executed: /replenish pots.
+2015-07-09 01:24:33 - Command: ERROR: System.ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index
+   at System.ThrowHelper.ThrowArgumentOutOfRangeException()
+   at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at Replenisher.Replenisher.Replen(CommandArgs args)
+   at TShockAPI.Command.Run(String msg, Boolean silent, TSPlayer ply, List`1 parms)
