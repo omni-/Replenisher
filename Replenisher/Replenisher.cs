@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Replenisher
 {
-    [ApiVersion(1, 18)]
+    [ApiVersion(1, 19)]
     public class Replenisher : TerrariaPlugin
     {
         private static readonly int TIMEOUT = 100000;
@@ -44,6 +44,7 @@ namespace Replenisher
         {
             GenType type = GenType.ore;
             int amount = -1;
+            ushort oretype = 0;
             if (args.Parameters.Count >= 2 && Enum.TryParse<GenType>(args.Parameters[0], true, out type) && int.TryParse(args.Parameters[1], out amount))
             {
                 if (amount <= 0)
@@ -51,43 +52,71 @@ namespace Replenisher
                     args.Player.SendErrorMessage("Please enter an amount greater than zero.");
                     return;
                 }
-                switch(type)
+                if (type == GenType.ore)
                 {
-                    case GenType.ore:
-                        break;
-                    case GenType.chests:
-                        int[] NonHMChestItems = new int[] { 997, 49, 50, 53, 54, 55, 975, 930 };
-                        for (int i = 0; i < TIMEOUT; i++)
-                        {
-                            int item = NonHMChestItems[WorldGen.genRand.Next(0, NonHMChestItems.Length + 1)];
-                            //WorldGen.AddBuriedChest()
-                        }
-                            break;
-                    case GenType.pots:
-                        int potcounter = 0;
-                        for (int i = 0; i < TIMEOUT; i++)
-                        {
-                            if (WorldGen.PlacePot(WorldGen.genRand.Next(1, Main.maxTilesX), WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY)))
-                            {
-                                potcounter++;
-                                if (potcounter >= amount)
-                                {
-                                    args.Player.SendInfoMessage("Pots generated successfully.");
-                                    return;
-                                }
-                            }
-                        }
-                        args.Player.SendErrorMessage("Failed to generate all the pots. Generated " + potcounter + " pots.");
-                            break;
-                    case GenType.lifecrystals:
-                        break;
-                    case GenType.altars:
-                        break;
+                    if (args.Parameters.Count < 3)
+                    {
+                        args.Player.SendErrorMessage("Please enter a valid ore type.");
+                        return;
+                    }
+                    var obj = new Terraria.ID.TileID();
+                    oretype = (ushort)obj.GetType().GetField(args.Parameters[2].FirstCharToUpper()).GetValue(obj);
                 }
+                int counter = 0;
+                bool success;
+                for (int i = 0; i < TIMEOUT; i++)
+                {
+                    success = false;
+                    int xRandBase = WorldGen.genRand.Next(1, Main.maxTilesX);
+                    int y = 0;
+                    switch (type)
+                    {
+                        case GenType.ore:
+                            y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                            if (oretype != Terraria.ID.TileID.Hellstone)
+                                WorldGen.OreRunner(xRandBase, y, 2.0, amount, oretype);
+                            else
+                                WorldGen.OreRunner(xRandBase, WorldGen.genRand.Next((int)(Main.maxTilesY) - 200, Main.maxTilesY), 2.0, amount, oretype);
+                            success = true;
+                            break;
+                        case GenType.chests:
+                            y = WorldGen.genRand.Next((int)(Main.worldSurface) - 200, Main.maxTilesY);
+                            if (WorldGen.AddBuriedChest(xRandBase, y))
+                                success = true;
+                            break;
+                        case GenType.pots:
+                            y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                            if (WorldGen.PlacePot(xRandBase, y))
+                                success = true;
+                            break;
+                        case GenType.lifecrystals:
+                            y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                            if (WorldGen.AddLifeCrystal(xRandBase, y))
+                                success = true;
+                            break;
+                        case GenType.altars:
+                            y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                            WorldGen.Place3x2(xRandBase, y, 26);
+                            if (Main.tile[xRandBase, y].type == 26)
+                                success = true;
+                            break;
+                    }
+                    if(success)
+                    {
+                        counter++;
+                        if (counter >= amount)
+                        {
+                            args.Player.SendInfoMessage(type.ToString().FirstCharToUpper() + " generated successfully.");// [" + xRandBase + ", " + y + "]");
+                            //args.Player.Teleport(xRandBase, y);
+                            return;
+                        }
+                    }
+                }
+                args.Player.SendErrorMessage("Failed to generate all the " + type.ToString() + ". Generated " + counter + " " + type.ToString() + ".");
             }
             else
             {
-                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars> <amount>");
+                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars> <amount> (oretype)");
             }
         }
     }
