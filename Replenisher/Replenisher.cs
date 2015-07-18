@@ -17,7 +17,7 @@ namespace Replenisher
 
         private Config config;
 
-        private DateTime lastTime;
+        private DateTime lastTime = DateTime.Now;
 
         public Replenisher(Main game)
             : base(game)

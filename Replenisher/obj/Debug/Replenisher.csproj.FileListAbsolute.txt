@@ -9,14 +9,3 @@ c:\users\cooper\documents\visual studio 2013\Projects\Replenisher\Replenisher\bi
 c:\users\cooper\documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\ServerPlugins\HttpServer.dll
 c:\users\cooper\documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\ServerPlugins\BCrypt.Net.dll
 c:\users\cooper\documents\visual studio 2013\Projects\Replenisher\Replenisher\bin\Debug\ServerPlugins\Mono.Data.Sqlite.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\obj\Debug\Replenisher.csprojResolveAssemblyReference.cache
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\obj\Debug\Replenisher.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\Replenisher.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\Replenisher.pdb
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\TerrariaServer.exe
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\Newtonsoft.Json.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\MySql.Data.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\HttpServer.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\BCrypt.Net.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\bin\Debug\ServerPlugins\Mono.Data.Sqlite.dll
-C:\Users\Cooper\Documents\GitHub\Replenisher\Replenisher\obj\Debug\Replenisher.pdb
