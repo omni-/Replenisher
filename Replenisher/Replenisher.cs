@@ -31,7 +31,7 @@ namespace Replenisher
         }
         public override Version Version
         {
-            get { return new Version("1.0"); }
+            get { return new Version("1.1"); }
         }
         public override string Name
         {
