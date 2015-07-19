@@ -28,6 +28,8 @@ namespace Replenisher
         {
             Commands.ChatCommands.Add(new Command("tshock.world.causeevents", Replen, "replen"));
             ServerApi.Hooks.GameUpdate.Register(this, OnUpdate);
+            if (!ReadConfig())
+                TShock.Log.ConsoleError("Error in config file. This will probably cause the plugin to crash if not resolved.");
         }
         public override Version Version
         {
@@ -47,7 +49,7 @@ namespace Replenisher
         }
         private void OnUpdate(EventArgs e)
         {
-            if (DateTime.Now.Minute - lastTime.Minute > config.AutoRefillTimer)
+            if (DateTime.Now.Minute - lastTime.Minute > config.AutoRefillTimerInMinutes)
             {
                 lastTime = DateTime.Now;
                 if (config.ReplenChests)
@@ -115,7 +117,7 @@ namespace Replenisher
                 {
                     TShock.Log.ConsoleError("Replenisher config not found. Creating new one...");
                     CreateConfig();
-                    return false;
+                    return true;
                 }
             }
             catch (Exception ex)
@@ -145,6 +147,11 @@ namespace Replenisher
                 {
                     case GenType.ore:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         if (oretype != Terraria.ID.TileID.Hellstone)
                             WorldGen.OreRunner(xRandBase, y, 2.0, amount, oretype);
                         else
@@ -153,28 +160,58 @@ namespace Replenisher
                         break;
                     case GenType.chests:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 200, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.AddBuriedChest(xRandBase, y);
                         break;
                     case GenType.pots:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.PlacePot(xRandBase, y);
                         break;
                     case GenType.lifecrystals:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.AddLifeCrystal(xRandBase, y);
                         break;
                     case GenType.altars:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.Place3x2(xRandBase, y, 26);
                         success = Main.tile[xRandBase, y].type == 26;
                         break;
                     case GenType.trees:
                         y = (int)Main.worldSurface;
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.GrowTree(xRandBase, y);
                         success = true;
                         break;
                     case GenType.floatingisland:
                         y = WorldGen.genRand.Next((int)Main.worldSurface + 175, (int)Main.worldSurface + 300);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.FloatingIsland(xRandBase, y);
                         success = true;
                         break;
@@ -206,6 +243,11 @@ namespace Replenisher
                 {
                     case GenType.ore:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         if (oretype != Terraria.ID.TileID.Hellstone)
                             WorldGen.OreRunner(xRandBase, y, 2.0, amount, oretype);
                         else
@@ -214,28 +256,58 @@ namespace Replenisher
                         break;
                     case GenType.chests:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 200, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.AddBuriedChest(xRandBase, y);
                         break;
                     case GenType.pots:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.PlacePot(xRandBase, y);
                         break;
                     case GenType.lifecrystals:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         success = WorldGen.AddLifeCrystal(xRandBase, y);
                         break;
                     case GenType.altars:
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 12, Main.maxTilesY);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.Place3x2(xRandBase, y, 26);
                         success = Main.tile[xRandBase, y].type == 26;
                         break;
                     case GenType.trees:
                         y = (int)Main.worldSurface;
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.GrowTree(xRandBase, y);
                         success = true;
                         break;
                     case GenType.floatingisland:
                         y = WorldGen.genRand.Next((int)Main.worldSurface + 175, (int)Main.worldSurface + 300);
+                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
+                        {
+                            success = false;
+                            break;
+                        }
                         WorldGen.FloatingIsland(xRandBase, y);
                         success = true;
                         break;
@@ -302,7 +374,7 @@ namespace Replenisher
     public class Config
     {
         public bool GenerateInProtectedAreas, AutomaticallRefill;
-        public int AutoRefillTimer;
+        public int AutoRefillTimerInMinutes = 30;
         public bool ReplenOres;
         public string OreToReplen = "Copper";
         public int OreAmount;
