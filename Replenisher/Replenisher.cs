@@ -33,7 +33,7 @@ namespace Replenisher
         }
         public override Version Version
         {
-            get { return new Version("1.1"); }
+            get { return new Version("1.1.3"); }
         }
         public override string Name
         {
@@ -292,13 +292,7 @@ namespace Replenisher
                         success = Main.tile[xRandBase, y].type == 26;
                         break;
                     case GenType.trees:
-                        y = (int)Main.worldSurface;
-                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
-                        {
-                            success = false;
-                            break;
-                        }
-                        WorldGen.GrowTree(xRandBase, y);
+                        WorldGen.AddTrees();
                         success = true;
                         break;
                     case GenType.floatingisland:
@@ -349,6 +343,11 @@ namespace Replenisher
                     try { oretype = (ushort)obj.GetType().GetField(args.Parameters[2].FirstCharToUpper()).GetValue(obj); }
                     catch (ArgumentException) { args.Player.SendErrorMessage("Please enter a valid ore type."); }
                 }
+                else if (type == GenType.trees)
+                {
+                    if (args.Parameters.Count >= 3)
+                        args.Player.SendInfoMessage("NOTE: The number of trees generated is constant. This cannot be changed. If not enough trees were generated, use the command multiple times.");
+                }
                 if (PrivateReplenisher(type, amount, out counter, oretype))
                 { 
                     args.Player.SendInfoMessage(type.ToString().FirstCharToUpper() + " generated successfully.");
@@ -357,7 +356,7 @@ namespace Replenisher
                 args.Player.SendErrorMessage("Failed to generate all the " + type.ToString() + ". Generated " + counter + " " + type.ToString() + ".");
             }
             else
-                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars> <amount> (oretype)");
+                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars|trees|floatingisland> <amount> (oretype)");
         }
     }
     public enum GenType
