@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Replenisher
 {
-    [ApiVersion(1, 19)]
+    [ApiVersion(1, 20)]
     public class Replenisher : TerrariaPlugin
     {
         private static readonly int TIMEOUT = 100000;
@@ -134,7 +134,7 @@ namespace Replenisher
                 args.Player.SendErrorMessage("Error reading config. Check log for details.");
             return;
         }
-        private bool PrivateReplenisher(GenType type, int amount, out int gend, ushort oretype = 0)
+        private bool PrivateReplenisher(GenType type, int amount, out int gend, ushort oretype = 0, CommandArgs args = null)
         {
             int counter = gend = 0;
             bool success;
@@ -159,6 +159,32 @@ namespace Replenisher
                         success = true;
                         break;
                     case GenType.chests:
+                        if (amount == 0)
+                        {
+                            int tmpEmpty = 0, empty = 0;
+                            for (int x = 0; x < 1000; x++)
+                            {
+                                if (Main.chest[x] != null)
+                                {
+                                    tmpEmpty++;
+                                    bool found = false;
+                                    foreach (Item itm in Main.chest[x].item)
+                                        if (itm.netID != 0)
+                                            found = true;
+                                    if (found == false)
+                                    {
+                                        empty++;
+                                        WorldGen.KillTile(Main.chest[x].x, Main.chest[x].y, false, false, false);
+                                        Main.chest[x] = null;
+
+                                    }
+
+                                }
+
+                            }
+                            args.Player.SendSuccessMessage("Uprooted {0} empty out of {1} chests.", empty, tmpEmpty);
+                            return true;
+                        }
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 200, Main.maxTilesY);
                         if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
                         {
@@ -196,13 +222,7 @@ namespace Replenisher
                         success = Main.tile[xRandBase, y].type == 26;
                         break;
                     case GenType.trees:
-                        y = (int)Main.worldSurface;
-                        if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
-                        {
-                            success = false;
-                            break;
-                        }
-                        WorldGen.GrowTree(xRandBase, y);
+                        WorldGen.AddTrees();
                         success = true;
                         break;
                     case GenType.floatingisland:
@@ -230,7 +250,7 @@ namespace Replenisher
             return false;
         }
 
-        private bool PrivateReplenisher(GenType type, int amount, ushort oretype = 0)
+        private bool PrivateReplenisher(GenType type, int amount, ushort oretype = 0, CommandArgs args = null)
         {
             int counter = 0;
             bool success;
@@ -255,6 +275,32 @@ namespace Replenisher
                         success = true;
                         break;
                     case GenType.chests:
+                        if (amount == 0)
+                        {
+                            int tmpEmpty = 0, empty = 0;
+                            for (int x = 0; x < 1000; x++)
+                            {
+                                if (Main.chest[x] != null)
+                                {
+                                    tmpEmpty++;
+                                    bool found = false;
+                                    foreach (Item itm in Main.chest[x].item)
+                                        if (itm.netID != 0)
+                                            found = true;
+                                    if (found == false)
+                                    {
+                                        empty++;
+                                        WorldGen.KillTile(Main.chest[x].x, Main.chest[x].y, false, false, false);
+                                        Main.chest[x] = null;
+
+                                    }
+
+                                }
+
+                            }
+                            args.Player.SendSuccessMessage("Uprooted {0} empty out of {1} chests.", empty, tmpEmpty);
+                            return true;
+                        }
                         y = WorldGen.genRand.Next((int)(Main.worldSurface) - 200, Main.maxTilesY);
                         if (TShock.Regions.InAreaRegion(xRandBase, y).Any() && !config.GenerateInProtectedAreas)
                         {
@@ -346,9 +392,9 @@ namespace Replenisher
                 else if (type == GenType.trees)
                 {
                     if (args.Parameters.Count >= 3)
-                        args.Player.SendInfoMessage("NOTE: The number of trees generated is constant. This cannot be changed. If not enough trees were generated, use the command multiple times.");
+                        args.Player.SendInfoMessage("CAUTION: The number entered is not the number of trees total. It refers to the number of batches of trees to generate.");
                 }
-                if (PrivateReplenisher(type, amount, out counter, oretype))
+                if (PrivateReplenisher(type, amount, out counter, oretype, args))
                 { 
                     args.Player.SendInfoMessage(type.ToString().FirstCharToUpper() + " generated successfully.");
                     return;
@@ -356,7 +402,7 @@ namespace Replenisher
                 args.Player.SendErrorMessage("Failed to generate all the " + type.ToString() + ". Generated " + counter + " " + type.ToString() + ".");
             }
             else
-                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars|trees|floatingisland> <amount> (oretype)");
+                args.Player.SendErrorMessage("Incorrect usage. Correct usage: /replen <ore|chests|pots|lifecrystals|altars|trees|floatingisland> <amount> (oretype)\r\nNote: when generating trees, the amount is in batches not specific trees.");
         }
     }
     public enum GenType
