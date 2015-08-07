@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Replenisher
 {
-    [ApiVersion(1, 20)]
+    [ApiVersion(1, 21)]
     public class Replenisher : TerrariaPlugin
     {
         private static readonly int TIMEOUT = 100000;
@@ -27,13 +27,14 @@ namespace Replenisher
         public override void Initialize()
         {
             Commands.ChatCommands.Add(new Command("tshock.world.causeevents", Replen, "replen"));
+            Commands.ChatCommands.Add(new Command("tshock.world.causeevents", ConfigReload, "replenreload"));
             ServerApi.Hooks.GameUpdate.Register(this, OnUpdate);
             if (!ReadConfig())
                 TShock.Log.ConsoleError("Error in config file. This will probably cause the plugin to crash if not resolved.");
         }
         public override Version Version
         {
-            get { return new Version("1.1.3"); }
+            get { return new Version("1.1.5"); }
         }
         public override string Name
         {
@@ -373,7 +374,7 @@ namespace Replenisher
             int counter = 0;
             if (args.Parameters.Count >= 2 && Enum.TryParse<GenType>(args.Parameters[0], true, out type) && int.TryParse(args.Parameters[1], out amount))
             {
-                if (amount <= 0)
+                if (amount <= 0 || (amount == 0 && type == GenType.chests))
                 {
                     args.Player.SendErrorMessage("Please enter an amount greater than zero.");
                     return;
