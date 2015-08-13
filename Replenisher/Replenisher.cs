@@ -29,6 +29,7 @@ namespace Replenisher
             Commands.ChatCommands.Add(new Command("tshock.world.causeevents", Replen, "replen"));
             Commands.ChatCommands.Add(new Command("tshock.world.causeevents", ConfigReload, "replenreload"));
             ServerApi.Hooks.GameUpdate.Register(this, OnUpdate);
+
             if (!ReadConfig())
                 TShock.Log.ConsoleError("Error in config file. This will probably cause the plugin to crash if not resolved.");
         }
@@ -63,8 +64,11 @@ namespace Replenisher
                     ushort oretype;
                     try
                     {
-                        oretype = (ushort)obj.GetType().GetField(config.OreToReplen.FirstCharToUpper()).GetValue(obj);
-                        PrivateReplenisher(GenType.ore, config.OreAmount, oretype);
+                        foreach (string s in config.OreToReplen)
+                        {
+                            oretype = (ushort)obj.GetType().GetField(s.FirstCharToUpper()).GetValue(obj);
+                            PrivateReplenisher(GenType.ore, config.OreAmount, oretype);
+                        }
                     }
                     catch (ArgumentException) { }
                 }
@@ -120,6 +124,13 @@ namespace Replenisher
                     CreateConfig();
                     return true;
                 }
+            }
+            catch (JsonSerializationException ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error in Replenisher config file. Please try to let the config file be generated automatically and manually import your settings. If that doesn't work, feel free to post about it.");
+                Console.WriteLine(ex.Message);
+                Console.ForegroundColor = ConsoleColor.White;
             }
             catch (Exception ex)
             {
@@ -419,10 +430,15 @@ namespace Replenisher
     }
     public class Config
     {
+        [JsonConstructor]
+        public Config()
+        {
+            OreToReplen = new List<string>();
+        }
         public bool GenerateInProtectedAreas, AutomaticallRefill;
         public int AutoRefillTimerInMinutes = 30;
         public bool ReplenOres;
-        public string OreToReplen = "Copper";
+        public List<string> OreToReplen = new List<string> { "Copper", "Iron" };
         public int OreAmount;
         public bool ReplenChests;
         public int ChestAmount;
