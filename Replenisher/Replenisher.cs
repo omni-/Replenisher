@@ -55,11 +55,18 @@ namespace Replenisher
             {
                 lastTime = DateTime.Now;
                 if (config.ReplenChests)
+                {
+                    TShock.Log.ConsoleInfo("Auto generating chests...");
                     PrivateReplenisher(GenType.chests, config.ChestAmount);
+                }
                 if (config.ReplenLifeCrystals)
+                {
+                    TShock.Log.ConsoleInfo("Auto generating life crystals...");
                     PrivateReplenisher(GenType.lifecrystals, config.LifeCrystalAmount);
+                }
                 if (config.ReplenOres)
                 {
+                    TShock.Log.ConsoleInfo("Auto generating ores...");
                     var obj = new Terraria.ID.TileID();
                     ushort oretype;
                     try
@@ -73,9 +80,15 @@ namespace Replenisher
                     catch (ArgumentException) { }
                 }
                 if (config.ReplenPots)
+                {
+                    TShock.Log.ConsoleInfo("Auto generating pots...");
                     PrivateReplenisher(GenType.pots, config.PotsAmount);
+                }
                 if (config.ReplenTrees)
+                {
+                    TShock.Log.ConsoleInfo("Auto generating trees...");
                     PrivateReplenisher(GenType.trees, config.TreesAmount);
+                }
             }
         }
         private void CreateConfig()
