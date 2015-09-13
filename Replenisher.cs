@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Replenisher
 {
-    [ApiVersion(1, 21)]
+    [ApiVersion(1, 22)]
     public class Replenisher : TerrariaPlugin
     {
         private static readonly int TIMEOUT = 100000;
@@ -398,11 +398,6 @@ namespace Replenisher
             int counter = 0;
             if (args.Parameters.Count >= 2 && Enum.TryParse<GenType>(args.Parameters[0], true, out type) && int.TryParse(args.Parameters[1], out amount))
             {
-                if (amount <= 0 || (amount == 0 && type == GenType.chests))
-                {
-                    args.Player.SendErrorMessage("Please enter an amount greater than zero.");
-                    return;
-                }
                 if (type == GenType.ore)
                 {
                     if (args.Parameters.Count < 3)
