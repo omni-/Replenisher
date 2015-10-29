@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,7 +73,7 @@ namespace Replenisher
                     {
                         foreach (string s in config.OreToReplen)
                         {
-                            oretype = (ushort)obj.GetType().GetField(s.FirstCharToUpper()).GetValue(obj);
+                            oretype = (ushort)obj.GetType().GetField(s.ToUpper()).GetValue(obj);
                             PrivateReplenisher(GenType.ore, config.OreAmount, oretype);
                         }
                     }
@@ -268,7 +268,7 @@ namespace Replenisher
                 {
                     counter++;
                     gend = counter;
-                    if (counter >= amount)                                                                               
+                    if (counter >= amount)
                         return true;
                 }
             }
@@ -406,7 +406,7 @@ namespace Replenisher
                         return;
                     }
                     var obj = new Terraria.ID.TileID();
-                    try { oretype = (ushort)obj.GetType().GetField(args.Parameters[2].FirstCharToUpper()).GetValue(obj); }
+                    try { oretype = (ushort)obj.GetType().GetField(args.Parameters[2].ToUpper()).GetValue(obj); }
                     catch (ArgumentException) { args.Player.SendErrorMessage("Please enter a valid ore type."); }
                 }
                 else if (type == GenType.trees)
@@ -415,8 +415,8 @@ namespace Replenisher
                         args.Player.SendInfoMessage("CAUTION: The number entered is not the number of trees total. It refers to the number of batches of trees to generate.");
                 }
                 if (PrivateReplenisher(type, amount, out counter, oretype, args))
-                { 
-                    args.Player.SendInfoMessage(type.ToString().FirstCharToUpper() + " generated successfully.");
+                {
+                    args.Player.SendInfoMessage(type.ToString().ToUpper() + " generated successfully.");
                     return;
                 }
                 args.Player.SendErrorMessage("Failed to generate all the " + type.ToString() + ". Generated " + counter + " " + type.ToString() + ".");
